@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     String[] data = {
             "Berlin",
-            "Muenchen",
+            "München",
             "Hamburg",
-            "Koeln",
-            "Duesseldorf"
+            "Köln",
+            "Düsseldorf"
     };
     List<String> forecast = new ArrayList<>(Arrays.asList(data));
 
