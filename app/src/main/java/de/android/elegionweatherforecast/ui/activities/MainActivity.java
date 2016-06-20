@@ -1,4 +1,4 @@
-package de.android.elegionweatherforecast;
+package de.android.elegionweatherforecast.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,17 +16,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import de.android.elegionweatherforecast.R;
+
 public class MainActivity extends AppCompatActivity {
-    private ArrayAdapter<String> forecastAdapter;
-    private ListView listView;
-    String[] data = {
+    private ArrayAdapter<String> mForecastAdapter;
+    private ListView mListView;
+    String[] mData = {
             "Berlin",
             "München",
             "Hamburg",
             "Köln",
             "Düsseldorf"
     };
-    List<String> forecast = new ArrayList<>(Arrays.asList(data));
+    List<String> mForecast = new ArrayList<>(Arrays.asList(mData));
 
 
     public MainActivity() {
@@ -36,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        forecastAdapter = new ArrayAdapter<>(
+        mForecastAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_text_view,
-                forecast);
-        listView = (ListView)findViewById(R.id.list_view_forecast);
-        listView.setAdapter(forecastAdapter);
+                mForecast);
+        mListView = (ListView)findViewById(R.id.list_view_forecast);
+        mListView.setAdapter(mForecastAdapter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_refresh) {
             return true;
         }
 
