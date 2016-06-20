@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_refresh) {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute();
+            weatherTask.execute("94043");
             return true;
         }
 

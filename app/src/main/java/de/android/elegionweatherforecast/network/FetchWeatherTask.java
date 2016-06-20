@@ -1,5 +1,6 @@
 package de.android.elegionweatherforecast.network;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,19 +13,41 @@ import java.net.URL;
 
 import de.android.elegionweatherforecast.BuildConfig;
 
-public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
+public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Void doInBackground(String... params) {
+        if (params.length == 0) {
+            return null;
+        }
+
         HttpURLConnection urlConnection= null;
         BufferedReader reader = null;
         String forecastJsonString = null;
 
+        String format = "json";
+        String units = "metric";
+        int numDays = 1;
+
         try {
-            String baseUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=1";
-            String apiKey = "&APPID=" + BuildConfig.OPEN_WEATHER_MAP_API_KEY;
-            URL url = new URL(baseUrl.concat(apiKey));
+            final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+            final String QUERY_PARAM = "q";
+            final String FORMAT_PARAM = "mode";
+            final String UNITS_PARAM = "units";
+            final String DAYS_PARAM = "cnt";
+            final String APP_ID_PARAM = "APPID";
+
+            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                    .appendQueryParameter(QUERY_PARAM, params[0])
+                    .appendQueryParameter(FORMAT_PARAM, format)
+                    .appendQueryParameter(UNITS_PARAM, units)
+                    .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .appendQueryParameter(APP_ID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
+                    .build();
+
+            URL url = new URL(builtUri.toString());
+            Log.d(LOG_TAG, "Built URI " + builtUri.toString());
 
             urlConnection = (HttpURLConnection)url.openConnection();
             urlConnection.setRequestMethod("GET");
