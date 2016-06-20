@@ -23,7 +23,7 @@ public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
 
         try {
             String baseUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=1";
-            String apiKey = "&APPID" + BuildConfig.OPEN_WEATHER_MAP_API_KEY;
+            String apiKey = "&APPID=" + BuildConfig.OPEN_WEATHER_MAP_API_KEY;
             URL url = new URL(baseUrl.concat(apiKey));
 
             urlConnection = (HttpURLConnection)url.openConnection();
@@ -46,6 +46,7 @@ public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
                 return null;
             }
             forecastJsonString = buffer.toString();
+            Log.d(LOG_TAG, forecastJsonString);
         }catch (IOException e) {
             Log.e(LOG_TAG, "Error", e);
             return null;
