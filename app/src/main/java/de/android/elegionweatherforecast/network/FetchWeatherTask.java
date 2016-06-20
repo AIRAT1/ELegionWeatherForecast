@@ -46,6 +46,9 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
                     .appendQueryParameter(APP_ID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
                     .build();
 
+//            example query to find city id
+//            http://api.openweathermap.org/data/2.5/weather?q=Berlin&APPID=a67b395621fb7f28f3896da2171e6a40
+
             URL url = new URL(builtUri.toString());
             Log.d(LOG_TAG, "Built URI " + builtUri.toString());
 
