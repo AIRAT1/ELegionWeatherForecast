@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mForecastAdapter;
     private ListView mListView;
     String[] mData = {
-            "Berlin",
-            "München",
-            "Hamburg",
-            "Köln",
-            "Düsseldorf"
+            "Berlin", //2950159
+            "München", //2867714
+            "Hamburg", //2911298
+            "Köln", //2886242
+            "Braunschweig" //2945024
     };
     List<String> mForecast = new ArrayList<>(Arrays.asList(mData));
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_refresh) {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("Berlin");
+            weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
 
             return true;
         }
