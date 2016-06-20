@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.android.elegionweatherforecast.R;
+import de.android.elegionweatherforecast.network.FetchWeatherTask;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mForecastAdapter;
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute();
             return true;
         }
 
