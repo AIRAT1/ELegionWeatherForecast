@@ -20,7 +20,7 @@ import de.android.elegionweatherforecast.R;
 import de.android.elegionweatherforecast.network.FetchWeatherTask;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayAdapter<String> mForecastAdapter;
+    public static ArrayAdapter<String> sForecastAdapter;
     private ListView mListView;
     public static String[] sData = {
             "Berlin", //2950159
@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mForecastAdapter = new ArrayAdapter<>(
+        sForecastAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_text_view,
                 mForecast);
         mListView = (ListView)findViewById(R.id.list_view_forecast);
-        mListView.setAdapter(mForecastAdapter);
+        mListView.setAdapter(sForecastAdapter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

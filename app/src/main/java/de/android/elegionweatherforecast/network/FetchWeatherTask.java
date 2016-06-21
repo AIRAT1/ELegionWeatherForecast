@@ -140,8 +140,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             forecastJsonString = buffer.toString();
             Log.d(LOG_TAG, "Forecast string: " + forecastJsonString);
 
-//            splitJsonString(forecastJsonString);
-
         }catch (IOException e) {
             Log.e(LOG_TAG, "Error", e);
             return null;
@@ -167,10 +165,13 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         return null;
     }
 
-    private void splitJsonString(String forecastJsonString) {
-        String[] strings = forecastJsonString.split("coord\":");
-        for (int i = 1; i < strings.length; i++) {
-            Log.d(LOG_TAG, strings[i]);
+    @Override
+    protected void onPostExecute(String[] result) {
+        if (result != null) {
+            MainActivity.sForecastAdapter.clear();
+            for (String dayForecastString : result) {
+                MainActivity.sForecastAdapter.add(dayForecastString);
+            }
         }
     }
 }
