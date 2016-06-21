@@ -38,12 +38,13 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         final String OWM_LIST = "list";
         final String OWM_WEATHER = "weather";
         final String OWM_TEMPERATURE = "temp";
-        final String OWM_MAX = "max";
-        final String OWM_MIN = "min";
+        final String OWM_MAX = "temp_max";
+        final String OWM_MIN = "temp_min";
         final String OWM_DESCRIPTION = "main";
 
         JSONObject forecastJson = new JSONObject(forecastJsonString);
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
+        Log.d(LOG_TAG, "weatherArrayLength " + weatherArray.length());
 
         Time dayTime = new Time();
         dayTime.setToNow();
@@ -62,12 +63,13 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             JSONObject weatherObject = cityForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
             description = weatherObject.getString(OWM_DESCRIPTION);
 
-            JSONObject temperatureObject = cityForecast.getJSONObject(OWM_TEMPERATURE);
-            double high = temperatureObject.getDouble(OWM_MAX);
-            double low = temperatureObject.getDouble(OWM_MIN);
-            highAndLow = formatHighLows(high, low);
+//            JSONObject temperatureObject = cityForecast.getJSONObject(OWM_TEMPERATURE);
+//            double high = temperatureObject.getDouble(OWM_MAX);
+//            double low = temperatureObject.getDouble(OWM_MIN);
+//            highAndLow = formatHighLows(high, low);
 
-            resultString[i] = day + " - " + description + " - " + highAndLow;
+//            resultString[i] = day + " - " + description + " - " + highAndLow;
+            resultString[i] = day + " - " + description;
         }
         for (String s : resultString) {
             Log.d(LOG_TAG, "Forecast entry " + s);
@@ -109,10 +111,10 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 //            http://api.openweathermap.org/data/2.5/weather?q=Berlin&APPID=a67b395621fb7f28f3896da2171e6a40
 
             // work URL
-//            URL url = new URL(builtUri.toString());
+            URL url = new URL(builtUri.toString());
 
             // test URL
-            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&appid=a67b395621fb7f28f3896da2171e6a40");
+//            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&appid=a67b395621fb7f28f3896da2171e6a40");
 
             Log.d(LOG_TAG, "Built URI " + builtUri.toString());
 
