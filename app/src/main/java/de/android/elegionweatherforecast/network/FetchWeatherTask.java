@@ -18,6 +18,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import de.android.elegionweatherforecast.BuildConfig;
+import de.android.elegionweatherforecast.ui.activities.MainActivity;
 
 public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
@@ -37,7 +38,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private String[] getWeatherDataFromJson(String forecastJsonString) throws JSONException {
         final String OWM_LIST = "list";
         final String OWM_WEATHER = "weather";
-        final String OWM_TEMPERATURE = "temp";
         final String OWM_MAX = "temp_max";
         final String OWM_MIN = "temp_min";
         final String OWM_DESCRIPTION = "main";
@@ -63,13 +63,13 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             JSONObject weatherObject = cityForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
             description = weatherObject.getString(OWM_DESCRIPTION);
 
-//            JSONObject temperatureObject = cityForecast.getJSONObject(OWM_TEMPERATURE);
-//            double high = temperatureObject.getDouble(OWM_MAX);
-//            double low = temperatureObject.getDouble(OWM_MIN);
-//            highAndLow = formatHighLows(high, low);
+            JSONObject temperatureObject = cityForecast.getJSONObject(OWM_DESCRIPTION);
+            double high = temperatureObject.getDouble(OWM_MAX);
+            double low = temperatureObject.getDouble(OWM_MIN);
+            highAndLow = formatHighLows(high, low);
 
-//            resultString[i] = day + " - " + description + " - " + highAndLow;
-            resultString[i] = day + " - " + description;
+            resultString[i] = MainActivity.sData[i] + " " +
+                    day + " - " + description + " - " + highAndLow;
         }
         for (String s : resultString) {
             Log.d(LOG_TAG, "Forecast entry " + s);
