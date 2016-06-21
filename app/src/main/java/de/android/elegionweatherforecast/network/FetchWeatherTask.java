@@ -73,6 +73,9 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
             }
             forecastJsonString = buffer.toString();
             Log.d(LOG_TAG, forecastJsonString);
+
+            splitJsonString(forecastJsonString);
+
         }catch (IOException e) {
             Log.e(LOG_TAG, "Error", e);
             return null;
@@ -89,5 +92,12 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
             }
         }
         return null;
+    }
+
+    private void splitJsonString(String forecastJsonString) {
+        String[] strings = forecastJsonString.split("coord");
+        for (int i = 1; i < strings.length; i++) {
+            Log.d(LOG_TAG, strings[i]);
+        }
     }
 }
