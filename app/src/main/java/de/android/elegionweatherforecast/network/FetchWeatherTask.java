@@ -10,14 +10,27 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 
 import de.android.elegionweatherforecast.BuildConfig;
 
-public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
+public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
+    private String getReadableDateString(long time) {
+        SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
+        return shortenedDateFormat.format(time);
+    }
+
+    private String formatHighLows(double high, double low) {
+        long roundedHigh = Math.round(high);
+        long roundedLow = Math.round(low);
+        String highLowString = roundedHigh + "/" + roundedLow;
+        return highLowString;
+    }
+
     @Override
-    protected Void doInBackground(String... params) {
+    protected String[] doInBackground(String... params) {
         if (params.length == 0) {
             return null;
         }
