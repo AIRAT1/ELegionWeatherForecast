@@ -95,7 +95,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
     }
 
     private void splitJsonString(String forecastJsonString) {
-        String[] strings = forecastJsonString.split("coord");
+        String[] strings = forecastJsonString.split("coord\":");
         for (int i = 1; i < strings.length; i++) {
             Log.d(LOG_TAG, strings[i]);
         }
