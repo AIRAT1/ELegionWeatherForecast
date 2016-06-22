@@ -44,7 +44,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         JSONObject forecastJson = new JSONObject(forecastJsonString);
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
-        Log.d(LOG_TAG, "weatherArrayLength " + weatherArray.length());
+//        Log.d(LOG_TAG, "weatherArrayLength " + weatherArray.length());
 
         Time dayTime = new Time();
         dayTime.setToNow();
@@ -116,7 +116,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             // test URL
 //            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&appid=a67b395621fb7f28f3896da2171e6a40");
 
-            Log.d(LOG_TAG, "Built URI " + builtUri.toString());
+//            Log.d(LOG_TAG, "Built URI " + builtUri.toString());
 
             urlConnection = (HttpURLConnection)url.openConnection();
             urlConnection.setRequestMethod("GET");
