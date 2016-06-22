@@ -71,9 +71,9 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             resultString[i] = MainActivity.sData[i] + " " +
                     day + " - " + description + " - " + highAndLow;
         }
-        for (String s : resultString) {
-            Log.d(LOG_TAG, "Forecast entry " + s);
-        }
+//        for (String s : resultString) {
+//            Log.d(LOG_TAG, "Forecast entry " + s);
+//        }
         return resultString;
     }
 
@@ -138,7 +138,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
                 return null;
             }
             forecastJsonString = buffer.toString();
-            Log.d(LOG_TAG, "Forecast string: " + forecastJsonString);
+//            Log.d(LOG_TAG, "Forecast string: " + forecastJsonString);
 
         }catch (IOException e) {
             Log.e(LOG_TAG, "Error", e);
