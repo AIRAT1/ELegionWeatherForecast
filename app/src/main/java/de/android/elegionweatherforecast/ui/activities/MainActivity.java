@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -46,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
                 mForecast);
         mListView = (ListView)findViewById(R.id.list_view_forecast);
         mListView.setAdapter(sForecastAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String forecast = sForecastAdapter.getItem(position);
+                Toast.makeText(MainActivity.this, forecast, Toast.LENGTH_SHORT).show();
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

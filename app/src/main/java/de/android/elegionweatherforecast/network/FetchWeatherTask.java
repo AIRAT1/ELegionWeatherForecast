@@ -89,7 +89,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         String format = "json";
         String units = "metric";
-        String lang = "ru";
+        String lang = "de";
 
         try {
             final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/group?";
