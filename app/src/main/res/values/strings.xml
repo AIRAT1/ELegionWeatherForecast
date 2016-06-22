@@ -4,4 +4,5 @@
     <string name="add_a_new_city">Add a new city?</string>
     <string name="yes">Yes</string>
     <string name="action_refresh">Refresh</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
