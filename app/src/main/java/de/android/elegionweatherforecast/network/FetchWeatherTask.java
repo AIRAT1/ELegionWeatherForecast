@@ -40,7 +40,13 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         final String OWM_WEATHER = "weather";
         final String OWM_MAX = "temp_max";
         final String OWM_MIN = "temp_min";
-        final String OWM_DESCRIPTION = "main";
+        final String OWM_TEMP = "temp";
+        final String OWM_MAIN = "main";
+        final String OWM_DESCRIPTION = "description";
+        final String OWM_WIND = "wind";
+        final String OWM_SPEED = "speed";
+        final String OWM_DEG = "deg";
+        final String OWM_NAME = "name";
 
         JSONObject forecastJson = new JSONObject(forecastJsonString);
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
@@ -55,6 +61,10 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             String day;
             String description;
             String highAndLow;
+            String temp;
+            double speed;
+            double deg;
+            String name;
 
             JSONObject cityForecast = weatherArray.getJSONObject(i);
 
@@ -63,13 +73,20 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             JSONObject weatherObject = cityForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
             description = weatherObject.getString(OWM_DESCRIPTION);
 
-            JSONObject temperatureObject = cityForecast.getJSONObject(OWM_DESCRIPTION);
+            JSONObject temperatureObject = cityForecast.getJSONObject(OWM_MAIN);
+            temp = String.valueOf(Math.round(temperatureObject.getDouble(OWM_TEMP)));
             double high = temperatureObject.getDouble(OWM_MAX);
             double low = temperatureObject.getDouble(OWM_MIN);
             highAndLow = formatHighLows(high, low);
 
-            resultString[i] = MainActivity.sData[i] + " " +
-                    day + " - " + description + " - " + highAndLow;
+            JSONObject windObject = cityForecast.getJSONObject(OWM_WIND);
+            speed = windObject.getDouble(OWM_SPEED);
+            deg = windObject.getDouble(OWM_DEG);
+
+            name = cityForecast.getString(OWM_NAME);
+
+            resultString[i] = name + " " +
+                    day + " - " + description + " - " + temp + " " + speed + " " + deg;
         }
 //        for (String s : resultString) {
 //            Log.d(LOG_TAG, "Forecast entry " + s);
@@ -116,7 +133,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             // test URL
 //            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&appid=a67b395621fb7f28f3896da2171e6a40");
 
-//            Log.d(LOG_TAG, "Built URI " + builtUri.toString());
+            Log.d(LOG_TAG, "Built URI " + builtUri.toString());
 
             urlConnection = (HttpURLConnection)url.openConnection();
             urlConnection.setRequestMethod("GET");

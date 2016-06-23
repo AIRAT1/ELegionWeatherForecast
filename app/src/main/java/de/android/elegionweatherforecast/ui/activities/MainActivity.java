@@ -24,14 +24,14 @@ import de.android.elegionweatherforecast.network.FetchWeatherTask;
 public class MainActivity extends AppCompatActivity {
     public static ArrayAdapter<String> sForecastAdapter;
     private ListView mListView;
-    public static String[] sData = {
+    private String[] data = {
             "Berlin", //2950159
             "München", //2867714
             "Hamburg", //2911298
             "Köln", //2886242
             "Braunschweig" //2945024
     };
-    List<String> mForecast = new ArrayList<>(Arrays.asList(sData));
+    List<String> mForecast = new ArrayList<>(Arrays.asList(data));
 
 
     public MainActivity() {
