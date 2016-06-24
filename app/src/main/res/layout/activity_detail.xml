@@ -13,5 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_text"
-        tools:text="detail_text"/>
+        tools:text="detail_text"
+        android:fontFamily="sans-serif-condensed"/>
 </RelativeLayout>

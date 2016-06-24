@@ -47,6 +47,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         final String OWM_SPEED = "speed";
         final String OWM_DEG = "deg";
         final String OWM_NAME = "name";
+        final String OWM_PRESSURE = "pressure";
 
         JSONObject forecastJson = new JSONObject(forecastJsonString);
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
@@ -64,6 +65,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             String temp;
             double speed;
             double deg;
+            double pressure;
             String name;
 
             JSONObject cityForecast = weatherArray.getJSONObject(i);
@@ -77,6 +79,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             temp = String.valueOf(Math.round(temperatureObject.getDouble(OWM_TEMP)));
             double high = temperatureObject.getDouble(OWM_MAX);
             double low = temperatureObject.getDouble(OWM_MIN);
+            pressure = temperatureObject.getDouble(OWM_PRESSURE);
             highAndLow = formatHighLows(high, low);
 
             JSONObject windObject = cityForecast.getJSONObject(OWM_WIND);
@@ -86,7 +89,8 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             name = cityForecast.getString(OWM_NAME);
 
             resultString[i] = name + " " +
-                    day + " - " + description + " - " + temp + " " + speed + " " + deg;
+                    day + " " + description + " " + temp + " " + speed + " " + deg + " "
+            + pressure + " " + highAndLow;
         }
 //        for (String s : resultString) {
 //            Log.d(LOG_TAG, "Forecast entry " + s);
