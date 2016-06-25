@@ -21,6 +21,7 @@ import de.android.elegionweatherforecast.network.FetchWeatherTask;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayAdapter<String> sForecastAdapter;
+    public static String[] sValues;
     private ListView mListView;
 
 
@@ -41,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String forecast = sForecastAdapter.getItem(position);
+                String forecast;
+                if (sValues.length > 0) {
+                    forecast = sValues[position];
+                }else {
+                    forecast = sForecastAdapter.getItem(position);
+                }
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT, forecast);
                 startActivity(intent);

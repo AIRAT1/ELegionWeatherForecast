@@ -88,8 +88,8 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
             name = cityForecast.getString(OWM_NAME);
 
-            resultString[i] = name + " " +
-                    day + " " + description + " " + temp + " " + speed + " " + deg + " "
+            resultString[i] = name + " " + temp + " " +
+                    day + " " + description + " " + speed + " " + deg + " "
             + pressure + " " + highAndLow;
         }
 //        for (String s : resultString) {
@@ -190,9 +190,21 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     protected void onPostExecute(String[] result) {
         if (result != null) {
             MainActivity.sForecastAdapter.clear();
-            for (String dayForecastString : result) {
-                MainActivity.sForecastAdapter.add(dayForecastString);
+
+            String shortForecastString = "";
+            String[] shortForecasts;
+
+            for (int i = 0; i < result.length; i++) {
+                shortForecasts = result[i].split(" ");
+                shortForecastString = shortForecasts[0] + " " + shortForecasts[1];
+                MainActivity.sForecastAdapter.add(shortForecastString);
             }
+            MainActivity.sValues = new String[result.length];
+            MainActivity.sValues = result;
+
+//            for (String dayForecastString : result) {
+//                MainActivity.sForecastAdapter.add(dayForecastString);
+//            }
         }
     }
 }
