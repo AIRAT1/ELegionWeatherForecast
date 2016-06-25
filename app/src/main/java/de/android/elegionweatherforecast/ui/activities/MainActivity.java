@@ -15,8 +15,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import de.android.elegionweatherforecast.R;
 import de.android.elegionweatherforecast.network.FetchWeatherTask;
@@ -24,14 +22,6 @@ import de.android.elegionweatherforecast.network.FetchWeatherTask;
 public class MainActivity extends AppCompatActivity {
     public static ArrayAdapter<String> sForecastAdapter;
     private ListView mListView;
-    private String[] data = {
-            "Berlin", //2950159
-            "München", //2867714
-            "Hamburg", //2911298
-            "Köln", //2886242
-            "Braunschweig" //2945024
-    };
-    List<String> mForecast = new ArrayList<>(Arrays.asList(data));
 
 
     public MainActivity() {
@@ -45,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 this,
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_text_view,
-                mForecast);
+                new ArrayList<String>());
         mListView = (ListView)findViewById(R.id.list_view_forecast);
         mListView.setAdapter(sForecastAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,5 +95,11 @@ public class MainActivity extends AppCompatActivity {
     private void updateWeather() {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateWeather();
     }
 }
