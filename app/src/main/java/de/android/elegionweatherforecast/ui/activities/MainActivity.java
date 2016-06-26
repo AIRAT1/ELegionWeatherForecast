@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.android.elegionweatherforecast.R;
 import de.android.elegionweatherforecast.network.FetchWeatherTask;
@@ -24,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayAdapter<String> sForecastAdapter;
     public static String[] sValues;
     private ListView mListView;
-    public List<Integer> cityesId;
+    public static ArrayList<Integer> cityesId;
 
 
     public MainActivity() {
@@ -110,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
 //        weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
         weatherTask.execute(cityesIdToString());
+        sForecastAdapter.notifyDataSetChanged();
     }
 
     private String cityesIdToString() {

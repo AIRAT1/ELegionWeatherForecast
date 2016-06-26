@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import de.android.elegionweatherforecast.R;
 
@@ -48,8 +47,7 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
         if (!validateValue()) {
             return;
         }
-        //TODO add city id to the list
-        Toast.makeText(AddCityActivity.this, "It's all wright!", Toast.LENGTH_SHORT).show();
+        MainActivity.cityesId.add(Integer.getInteger(editText.toString()));
         finish();
     }
 
