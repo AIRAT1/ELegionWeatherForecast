@@ -49,7 +49,7 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
         MainActivity.cityesId.add(Integer.valueOf(editText.getText().toString()));
-        MainActivity.sForecastAdapter.notifyDataSetChanged();
+//        MainActivity.sForecastAdapter.notifyDataSetChanged();
         for (int i = 0; i < MainActivity.cityesId.size(); i++) {
             Log.d("LOG", String.valueOf(MainActivity.cityesId.get(i)));
         }

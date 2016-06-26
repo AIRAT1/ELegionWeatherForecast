@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         cityesId.add(2911298);
         cityesId.add(2886242);
         cityesId.add(2945024);
+//        cityesId.add(2172797);
         sForecastAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.list_item_forecast,
