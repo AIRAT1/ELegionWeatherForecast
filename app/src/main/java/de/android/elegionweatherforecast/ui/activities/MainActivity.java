@@ -117,9 +117,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < cityesId.size() - 1; i++) {
             builder.append(cityesId.get(i)).append(",");
         }
-        Log.d("LOG", builder.toString());
         builder.append(cityesId.get(cityesId.size() - 1));
-        Log.d("LOG", builder.toString());
         return builder.toString();
     }
 
