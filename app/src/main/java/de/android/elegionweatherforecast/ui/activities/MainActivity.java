@@ -34,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startValues = "2950159,2867714,2911298,2886242,2945024";
-        startValuesArray = startValues.split(",");
-        for (int i = 0; i < startValuesArray.length; i++) {
-            cityesId.add(Integer.getInteger(startValuesArray[i]));
-        }
+        cityesId = new ArrayList<>();
 //        cityesId.add(2172797);
+        cityesId.add(2950159);
+        cityesId.add(2867714);
+        cityesId.add(2911298);
+        cityesId.add(2886242);
+        cityesId.add(2945024);
         sForecastAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.list_item_forecast,
