@@ -6,4 +6,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_setting">Settings</string>
+    <string name="ok">Ok</string>
+    <string name="enter_id_of_the_city">Введите ID города</string>
+    <string name="enter_values">Введите данные</string>
 </resources>
