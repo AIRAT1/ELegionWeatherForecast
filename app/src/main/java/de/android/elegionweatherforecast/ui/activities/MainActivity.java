@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
 //        weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
         weatherTask.execute(cityesIdToString());
-        sForecastAdapter.notifyDataSetChanged();
     }
 
     private String cityesIdToString() {

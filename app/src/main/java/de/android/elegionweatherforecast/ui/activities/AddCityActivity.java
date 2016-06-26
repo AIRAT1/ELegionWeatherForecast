@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -47,7 +48,11 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
         if (!validateValue()) {
             return;
         }
-        MainActivity.cityesId.add(Integer.getInteger(editText.toString()));
+        MainActivity.cityesId.add(Integer.valueOf(editText.getText().toString()));
+        MainActivity.sForecastAdapter.notifyDataSetChanged();
+        for (int i = 0; i < MainActivity.cityesId.size(); i++) {
+            Log.d("LOG", String.valueOf(MainActivity.cityesId.get(i)));
+        }
         finish();
     }
 
