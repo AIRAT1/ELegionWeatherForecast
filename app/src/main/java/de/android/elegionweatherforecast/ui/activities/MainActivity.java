@@ -1,6 +1,7 @@
 package de.android.elegionweatherforecast.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 import de.android.elegionweatherforecast.R;
 import de.android.elegionweatherforecast.network.FetchWeatherTask;
@@ -21,7 +24,9 @@ import de.android.elegionweatherforecast.network.FetchWeatherTask;
 public class MainActivity extends AppCompatActivity {
     public static ArrayAdapter<String> sForecastAdapter;
     public static String[] sValues;
+    private SharedPreferences sp;
     private ListView mListView;
+    private Set<String> set;
     public static ArrayList<Integer> cityesId;
 
     public MainActivity() {
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         cityesId.add(2911298);
         cityesId.add(2886242);
         cityesId.add(2945024);
+        if (convertSetToArrayList() != null) {
+            cityesId = convertSetToArrayList();
+        }
         sForecastAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.list_item_forecast,
@@ -105,9 +113,22 @@ public class MainActivity extends AppCompatActivity {
 //        weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
         weatherTask.execute(cityesIdToString());
     }
+    private ArrayList<Integer> convertSetToArrayList() {
+        sp = getPreferences(MODE_PRIVATE);
+        set = sp.getStringSet("key", null);
+        if (set != null) {
+            cityesId.clear();
+            Iterator<String> itr = set.iterator();
+            while (itr.hasNext()) {
+                cityesId.add(Integer.getInteger(itr.next().toString()));
+            }
+        }
+        return cityesId;
+    }
 
     private String cityesIdToString() {
         StringBuilder builder = new StringBuilder();
+        convertSetToArrayList();
         for (int i = 0; i < cityesId.size() - 1; i++) {
             builder.append(cityesId.get(i)).append(",");
         }
