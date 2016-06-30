@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
     public static String[] sValues;
     private ListView mListView;
     public static ArrayList<Integer> cityesId;
-    String startValues;
-    String[] startValuesArray;
-
 
     public MainActivity() {
     }
@@ -95,10 +92,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
-        }
         if (id == R.id.action_refresh) {
             updateWeather();
             return true;
