@@ -1,11 +1,9 @@
 package de.android.elegionweatherforecast.network;
 
-import android.content.ContentValues;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.format.Time;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,22 +17,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
 
 import de.android.elegionweatherforecast.BuildConfig;
-import de.android.elegionweatherforecast.data.WeatherContract.WeatherEntry;
 import de.android.elegionweatherforecast.ui.activities.MainActivity;
 
 public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
-    private ArrayAdapter<String> forecastAdapter;
-//    private final Context context;
-
-//    public FetchWeatherTask(Context context, ArrayAdapter<String> forecastAdapter) {
-//        this.context = context;
-//        this.forecastAdapter = forecastAdapter;
-//    }
-    private boolean debug = true;
 
 
     private String getReadableDateString(long time) {
@@ -48,23 +36,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         long roundedLow = Math.round(low);
         String highLowString = roundedHigh + "/" + roundedLow;
         return highLowString;
-    }
-    long addLocation(String locationSetting, String cityName, double lat, double lon) {
-        return - 1;
-    }
-    String[] convertContentValuesToUXFormat(Vector<ContentValues> cvv) {
-        String[] resultStrs = new String[cvv.size()];
-            for ( int i = 0; i < cvv.size(); i++ ) {
-                ContentValues weatherValues = cvv.elementAt(i);
-                String highAndLow = formatHighLows(
-                        weatherValues.getAsDouble(WeatherEntry.COLUMN_MAX_TEMP),
-                        weatherValues.getAsDouble(WeatherEntry.COLUMN_MIN_TEMP));
-                resultStrs[i] = getReadableDateString(
-                        weatherValues.getAsLong(WeatherEntry.COLUMN_DATE)) +
-                        " - " + weatherValues.getAsString(WeatherEntry.COLUMN_SHORT_DESC) +
-                        " - " + highAndLow;
-                    }
-        return resultStrs;
     }
 
     private String[] getWeatherDataFromJson(String forecastJsonString) throws JSONException {
@@ -83,7 +54,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         JSONObject forecastJson = new JSONObject(forecastJsonString);
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
-//        Log.d(LOG_TAG, "weatherArrayLength " + weatherArray.length());
 
         Time dayTime = new Time();
         dayTime.setToNow();
@@ -124,9 +94,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
                     day + " " + description + " " + speed + " " + deg + " "
             + pressure + " " + highAndLow;
         }
-//        for (String s : resultString) {
-//            Log.d(LOG_TAG, "Forecast entry " + s);
-//        }
         return resultString;
     }
 
@@ -233,10 +200,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             }
             MainActivity.sValues = new String[result.length];
             MainActivity.sValues = result;
-
-//            for (String dayForecastString : result) {
-//                MainActivity.sForecastAdapter.add(dayForecastString);
-//            }
         }
     }
 }
