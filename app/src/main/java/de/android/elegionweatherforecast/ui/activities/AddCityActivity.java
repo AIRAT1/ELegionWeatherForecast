@@ -2,20 +2,15 @@ package de.android.elegionweatherforecast.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import de.android.elegionweatherforecast.R;
 
@@ -23,9 +18,7 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
     private EditText editText;
     private TextInputLayout textInputLayout;
     private Button btnOk;
-    private Set<String> set;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
+
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, AddCityActivity.class);
         return intent;
@@ -56,28 +49,7 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
         MainActivity.cityesId.add(Integer.valueOf(editText.getText().toString()));
-        saveSet();
-//        MainActivity.sForecastAdapter.notifyDataSetChanged();
-//        for (int i = 0; i < MainActivity.cityesId.size(); i++) {
-//            Log.d("LOG", String.valueOf(MainActivity.cityesId.get(i)));
-//        }
         finish();
-    }
-
-    private Set convertArrayToSet() {
-        set = new HashSet<>();
-        for (int i = 0; i < MainActivity.cityesId.size(); i++) {
-            set.add(String.valueOf(MainActivity.cityesId.get(i)));
-            Log.d("LOG", "set " + String.valueOf(MainActivity.cityesId.get(i)));
-        }
-        return set;
-    }
-
-    private void saveSet() {
-        sp = getPreferences(MODE_PRIVATE);
-        editor = sp.edit();
-        editor.putStringSet("key", convertArrayToSet());
-        editor.commit();
     }
 
     private boolean validateValue() {
