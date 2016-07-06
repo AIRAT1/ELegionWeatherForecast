@@ -1,7 +1,9 @@
 package de.android.elegionweatherforecast.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static String[] sValues;
     private ListView mListView;
     public static ArrayList<Integer> cityesId;
+    private SharedPreferences sp;
 
     public MainActivity() {
     }
@@ -32,12 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cityesId = new ArrayList<>();
-//        cityesId.add(2172797);
-        cityesId.add(2950159);
-        cityesId.add(2867714);
-        cityesId.add(2911298);
-        cityesId.add(2886242);
-        cityesId.add(2945024);
+        initCityArray();
+
 
         sForecastAdapter = new ArrayAdapter<>(
                 this,
@@ -76,6 +75,23 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
             }
         });
+    }
+
+    private void initCityArray() {
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int arraysSize = sp.getInt("arrays_size", 0);
+        if (arraysSize != 0) {
+            for (int i = 0; i < arraysSize; i++) {
+                cityesId.add(sp.getInt("city " + i, 0));
+            }
+        }else {
+//            cityesId.add(2172797);
+            cityesId.add(2950159);
+            cityesId.add(2867714);
+            cityesId.add(2911298);
+            cityesId.add(2886242);
+            cityesId.add(2945024);
+        }
     }
 
     @Override

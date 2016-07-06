@@ -2,7 +2,9 @@ package de.android.elegionweatherforecast.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -18,6 +20,8 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
     private EditText editText;
     private TextInputLayout textInputLayout;
     private Button btnOk;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, AddCityActivity.class);
@@ -49,7 +53,19 @@ public class AddCityActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
         MainActivity.cityesId.add(Integer.valueOf(editText.getText().toString()));
+        savePreferences();
         finish();
+    }
+
+    private void savePreferences() {
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sp.edit();
+        int arraysSize = MainActivity.cityesId.size();
+        editor.putInt("arrays_size", arraysSize);
+        for (int i = 0; i < arraysSize; i++) {
+            editor.putInt("city " + i, MainActivity.cityesId.get(i));
+        }
+        editor.apply();
     }
 
     private boolean validateValue() {
