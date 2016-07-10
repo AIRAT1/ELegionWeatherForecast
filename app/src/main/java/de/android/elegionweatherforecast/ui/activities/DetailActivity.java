@@ -3,6 +3,7 @@ package de.android.elegionweatherforecast.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import de.android.elegionweatherforecast.R;
@@ -17,6 +18,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
             String forecstString = intent.getStringExtra(Intent.EXTRA_TEXT);
+            Log.d("LOG", "DetailActivity forecastString: " + forecstString);
 
             String[] forecasts = forecstString.split(" ");
 
@@ -31,6 +33,17 @@ public class DetailActivity extends AppCompatActivity {
                 ((TextView)findViewById(R.id.detail_wind_degree)).setText("Wind direction: " + getWindDegreeDescription(forecasts[8]));
                 ((TextView)findViewById(R.id.detail_pressure)).setText("Pressure: " + forecasts[9]);
                 ((TextView)findViewById(R.id.detail_max_min_temperature)).setText("max/min day temperature: " + forecasts[10]);
+            } else if (forecasts.length == 12) {
+                ((TextView)findViewById(R.id.detail_city_name)).setText("City: " + forecasts[0]);
+                ((TextView)findViewById(R.id.detail_temperature)).setText("Current temperature: " + forecasts[1]);
+                ((TextView)findViewById(R.id.detail_date)).setText("Current date: " + forecasts[2] +
+                        " " + forecasts[3] + " " + forecasts[4]);
+                ((TextView)findViewById(R.id.detail_weather)).setText("Current weather: " +
+                        forecasts[5] + " " + forecasts[6] + " " + forecasts[7]);
+                ((TextView)findViewById(R.id.detail_wind_speed)).setText("Wind speed: " + forecasts[8]);
+                ((TextView)findViewById(R.id.detail_wind_degree)).setText("Wind direction: " + getWindDegreeDescription(forecasts[9]));
+                ((TextView)findViewById(R.id.detail_pressure)).setText("Pressure: " + forecasts[10]);
+                ((TextView)findViewById(R.id.detail_max_min_temperature)).setText("max/min day temperature: " + forecasts[11]);
             }
         }
     }

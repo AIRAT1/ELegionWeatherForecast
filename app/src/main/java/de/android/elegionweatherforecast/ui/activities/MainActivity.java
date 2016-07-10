@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("LOG", "onClick " + cityesId.get(position));
                 String forecast;
                 if (sValues.length > 0) {
                     forecast = sValues[position];
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT, forecast);
+                Log.d("LOG", "forecast = " + forecast);
                 startActivity(intent);
             }
         });
@@ -109,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
                 cityesId.add(sp.getInt("city " + i, 0));
             }
         }else {
-//            cityesId.add(2172797);
+//            cityesId.add(2172797); Cair
+//            cityesId.add(323777); Antalya
+//            cityesId.add(524901); Moscow
             cityesId.add(2950159);
             cityesId.add(2867714);
             cityesId.add(2911298);
@@ -144,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateWeather() {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
 //        weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
+        Log.d("LOG",cityesIdToString());
         weatherTask.execute(cityesIdToString());
     }
 

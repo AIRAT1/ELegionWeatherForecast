@@ -14,41 +14,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_city_name"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        tools:text="detail_city_name"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_temperature"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        tools:text="detail_temperature"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_date"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        tools:text="detail_date"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_weather"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        tools:text="detail_weather"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_wind_speed"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        tools:text="detail_wind_speed"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_wind_degree"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        tools:text="detail_wind_degree"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_pressure"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        tools:text="detail_pressure"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_max_min_temperature"
-        tools:text="detail_text"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        tools:text="detail_max_min_temperature"/>
 
 </LinearLayout>
