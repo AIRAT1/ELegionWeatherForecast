@@ -1,5 +1,7 @@
 package de.android.elegionweatherforecast.network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.format.Time;
@@ -23,6 +25,9 @@ import de.android.elegionweatherforecast.ui.activities.MainActivity;
 
 public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+    private static Context context;
 
 
     private String getReadableDateString(long time) {
@@ -188,18 +193,26 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     @Override
     protected void onPostExecute(String[] result) {
         if (result != null) {
+
             MainActivity.sForecastAdapter.clear();
 
             String shortForecastString = "";
             String[] shortForecasts;
 
+//            sp = PreferenceManager.getDefaultSharedPreferences(FetchWeatherTask.context);
+//            editor = sp.edit();
+//            editor.putInt("result_length", result.length);
+
             for (int i = 0; i < result.length; i++) {
                 shortForecasts = result[i].split(" ");
                 shortForecastString = shortForecasts[0] + " " + shortForecasts[1];
+//                editor.putString("shortForecast " + i, shortForecastString);
+//                editor.putString("longForecast " + i, result[i]);
                 MainActivity.sForecastAdapter.add(shortForecastString);
             }
             MainActivity.sValues = new String[result.length];
             MainActivity.sValues = result;
         }
+//        editor.apply();
     }
 }

@@ -1,7 +1,10 @@
 package de.android.elegionweatherforecast.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -147,10 +150,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateWeather() {
-        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        Context context = getApplicationContext();
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (isNetWorkAvailable(context)) {
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
 //        weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
-        Log.d("LOG",cityesIdToString());
-        weatherTask.execute(cityesIdToString());
+            Log.d("LOG",cityesIdToString());
+            weatherTask.execute(cityesIdToString());
+        }else {
+            Toast.makeText(MainActivity.this, "Internet connection failed", Toast.LENGTH_SHORT).show();
+            // todo load values from memory
+//            int resultLength = sp.getInt("result_length", 0);
+//            if (resultLength != 0) {
+//                sForecastAdapter.clear();
+//                sValues = new String[resultLength];
+//                for (int i = 0; i < resultLength; i++) {
+//                    sForecastAdapter.add(sp.getString("shortForecast " + i, null));
+//                    sValues[i] = sp.getString("longForecast " + i, null);
+//                }
+//            }else {
+//                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+//            }
+        }
+    }
+    private boolean isNetWorkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
     private String cityesIdToString() {
