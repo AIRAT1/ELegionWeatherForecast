@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
     public static ArrayList<Integer> cityesId;
     private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     public MainActivity() {
     }
@@ -59,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Long click", Toast.LENGTH_SHORT).show();
+                cityesId.remove(position);
+                savePreferences();
+                updateWeather();
+
+                return true;
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,6 +88,17 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
             }
         });
+    }
+
+    private void savePreferences() {
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sp.edit();
+        int arraysSize = MainActivity.cityesId.size();
+        editor.putInt("arrays_size", arraysSize);
+        for (int i = 0; i < arraysSize; i++) {
+            editor.putInt("city " + i, MainActivity.cityesId.get(i));
+        }
+        editor.apply();
     }
 
     private void initCityArray() {
