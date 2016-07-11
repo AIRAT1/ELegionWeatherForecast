@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -153,31 +152,38 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         if (isNetWorkAvailable(context)) {
-            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            Toast.makeText(MainActivity.this, "Internet connection available", Toast.LENGTH_SHORT).show();
+            FetchWeatherTask weatherTask = new FetchWeatherTask(MainActivity.this);
 //        weatherTask.execute("2950159,2867714,2911298,2886242,2945024");
             Log.d("LOG",cityesIdToString());
             weatherTask.execute(cityesIdToString());
         }else {
-            Toast.makeText(MainActivity.this, "Internet connection failed", Toast.LENGTH_SHORT).show();
-            // todo load values from memory
-//            int resultLength = sp.getInt("result_length", 0);
-//            if (resultLength != 0) {
-//                sForecastAdapter.clear();
-//                sValues = new String[resultLength];
-//                for (int i = 0; i < resultLength; i++) {
-//                    sForecastAdapter.add(sp.getString("shortForecast " + i, null));
-//                    sValues[i] = sp.getString("longForecast " + i, null);
-//                }
-//            }else {
-//                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//            }
+            Toast.makeText(MainActivity.this, "Internet connection failed, load data from history", Toast.LENGTH_SHORT).show();
+             // todo load values from memory
+            int resultLength = sp.getInt("result_length", 0);
+            Log.d("LOG", "MainActivity resultLength " + String.valueOf(resultLength));
+            if (resultLength != 0) {
+                sForecastAdapter.clear();
+                sValues = new String[resultLength];
+                for (int i = 0; i < resultLength; i++) {
+                    sForecastAdapter.add(sp.getString("shortForecast " + i, null));
+                    sValues[i] = sp.getString("longForecast " + i, null);
+                }
+            }else {
+                Toast.makeText(MainActivity.this, "You need internet connection", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     private boolean isNetWorkAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
+        if (cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected()) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     private String cityesIdToString() {

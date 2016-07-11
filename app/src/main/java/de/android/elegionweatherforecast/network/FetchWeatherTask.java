@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -27,8 +28,11 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private static Context context;
+    private Context context;
 
+    public FetchWeatherTask(Context context) {
+        this.context = context;
+    }
 
     private String getReadableDateString(long time) {
         Date date = new Date(time);
@@ -196,23 +200,28 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
             MainActivity.sForecastAdapter.clear();
 
-            String shortForecastString = "";
+            String shortForecastString;
             String[] shortForecasts;
 
-//            sp = PreferenceManager.getDefaultSharedPreferences(FetchWeatherTask.context);
-//            editor = sp.edit();
-//            editor.putInt("result_length", result.length);
+            sp = PreferenceManager.getDefaultSharedPreferences(context);
+            Log.d("LOG", "sp = null: " + (sp == null));
+            editor = sp.edit();
+            Log.d("LOG", "editor = null: " + (editor == null));
+            editor.putInt("result_length", result.length);
+            Log.d("LOG", "result length asynctask " + result.length);
 
             for (int i = 0; i < result.length; i++) {
                 shortForecasts = result[i].split(" ");
                 shortForecastString = shortForecasts[0] + " " + shortForecasts[1];
-//                editor.putString("shortForecast " + i, shortForecastString);
-//                editor.putString("longForecast " + i, result[i]);
+                editor.putString("shortForecast " + i, shortForecastString);
+                Log.d("LOG", "shortForecast " + i + shortForecastString);
+                editor.putString("longForecast " + i, result[i]);
+                Log.d("LOG", "longForecast  " + i + result[i]);
                 MainActivity.sForecastAdapter.add(shortForecastString);
             }
             MainActivity.sValues = new String[result.length];
             MainActivity.sValues = result;
         }
-//        editor.apply();
+        editor.apply();
     }
 }
