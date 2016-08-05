@@ -141,6 +141,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
             // work URL
             URL url = new URL(builtUri.toString());
+            Log.d("LOG", url.toString());
 
             // test URL
 //            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&appid=a67b395621fb7f28f3896da2171e6a40");
